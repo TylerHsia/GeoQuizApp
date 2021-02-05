@@ -13,8 +13,10 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mTrueButton;
     private Button mFalseButton;
+    //declaring text box for use in QuizActivity
     private TextView mTextBox;
     private Button mNextButton;
+    //declaring previous button for use in QuizActivity
     private Button mPrevButton;
     private TextView mQuestionTextView;
 
@@ -34,13 +36,14 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Defining text view in QuizActivity and adding logic to handle clicking
         mQuestionTextView = (TextView) findViewById(R.id.text_view);
 
         mQuestionTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                updateQuestion();
+                //when the text is clicked, display the next question
+                nextQuestion();
             }
         });
 
@@ -64,15 +67,16 @@ public class QuizActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                updateQuestion();
+                nextQuestion();
             }
         });
 
+        //defining and adding logic for previous button
         mPrevButton = (Button) findViewById(R.id.previous_button);
         mPrevButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                //set currentIndex to one lower and update the question
                 mCurrentIndex = (mCurrentIndex + mQuestionBank.length - 1) % mQuestionBank.length;
                 updateQuestion();
             }
@@ -85,6 +89,12 @@ public class QuizActivity extends AppCompatActivity {
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
+    }
+
+    private void nextQuestion(){
+        //change the current index to that of the next question and update question
+        mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+        updateQuestion();
     }
 
     private void checkAnswer(boolean userPressedTrue){

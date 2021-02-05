@@ -16,6 +16,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private TextView mTextBox;
+    //declaring both image buttons for QuizActivity
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
     private TextView mQuestionTextView;
@@ -41,8 +42,7 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                updateQuestion();
+                nextQuestion();
             }
         });
 
@@ -62,15 +62,18 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        //definining the next imagebutton for QuizActivity and setting an onclicklistener
+        //that will go to the next question
         mNextButton = (ImageButton) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
-                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                updateQuestion();
+            public void onClick(View v) {
+                nextQuestion();
             }
         });
 
+        //definining the previous imagebutton for QuizActivity and setting an onclicklistener
+        //that will go to the previous question
         mPrevButton = (ImageButton) findViewById(R.id.previous_button);
         mPrevButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -80,7 +83,11 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        updateQuestion();
+    }
 
+    private void nextQuestion() {
+        mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
         updateQuestion();
     }
 
